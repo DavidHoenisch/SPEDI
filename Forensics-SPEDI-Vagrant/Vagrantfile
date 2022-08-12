@@ -8,22 +8,28 @@ Vagrant.configure("2") do |config|
   end
   # config.vm.box_check_update = false
 
-config.vm.network "forwarded_port", guest: 9999, host: 8181, host_ip: "127.0.0.1"
+config.vm.network "forwarded_port", guest: 9999, host: 8181, host_ip: "0.0.0.0"
 
-  # config.vm.network "public_network"
+  #config.vm.network "public_network"
 
   # config.vm.synced_folder "../data", "/vagrant_data"
 
    config.vm.provider "virtualbox" do |vb|
-     vb.gui = true
+     vb.gui = false
      vb.memory = "4096"
    end
 
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook.yml"
-  end
+   config.vm.provision "shell", inline: <<-SHELL
+     apt update && apt upgrade -y
+     apt install libafflib0v5 libewf2 libvhdi1 libvmdk1 libewf-dev libafflib-dev libsqlite3-dev libc3p0-java libvmdk-dev libvhdi-dev unzip -y
+     mkdir /opt/forensics-tools
+     cd /opt/forensics-tools
+     wget https://github.com/sleuthkit/autopsy/releases/download/autopsy-4.19.2/autopsy-4.19.2.zip
+     wget https://github.com/sleuthkit/sleuthkit/releases/download/sleuthkit-4.11.1/sleuthkit-java_4.11.1-1_amd64.deb
+     unzip autopsy-4.19.2.zip
+     dpkg -i sleuthkit-java_4.11.1-1_amd64.deb
+   SHELL
+  #config.vm.provision "ansible" do |ansible|
+  #  ansible.playbook = "playbook.yml"
+  #end
 end

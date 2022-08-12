@@ -1,0 +1,12 @@
+- name: Install forensics toolkit
+  apt:
+    pkg:
+      - forensics-all
+      - autopsy
+    state: present
+
+#- name: Run autopsy
+#  command: autopsy &>/dev/null
+#  become: yes
+#  become_user: root
+
