@@ -3,9 +3,9 @@
     url: https://github.com/activecm/rita/releases/download/v4.5.1/install.sh
     dest: /opt/install.sh
 
-- name: Run install script
+- name: make install script executable
   shell:
-    cmd: chmod u+x install.sh && ./install.sh
+    cmd: chmod u+x /opt/install.sh
   args:
     warn: false
 
@@ -13,4 +13,5 @@
   apt:
     name:
       - tshark
+      - unzip
     state: present

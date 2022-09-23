@@ -3,9 +3,10 @@
 
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "ubuntu/focal64"
+  config.vm.box = "ubuntu/bionic64"
   config.vm.define :spedinetwork do |t|
-  end
+  config.vm.synced_folder "sync_pcap/", "/home/vagrant/pcap"  
+end
   # config.vm.box_check_update = false
 
 #config.vm.network "forwarded_port", guest: 5001, host: 8080, host_ip: "127.0.0.1"
