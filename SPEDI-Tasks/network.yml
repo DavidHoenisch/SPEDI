@@ -1,0 +1,16 @@
+- name: Curl install script
+  get_url:
+    url: https://github.com/activecm/rita/releases/download/v4.5.1/install.sh
+    dest: /opt/install.sh
+
+- name: Run install script
+  shell:
+    cmd: chmod u+x install.sh && ./install.sh
+  args:
+    warn: false
+
+- name: Install apt packages
+  apt:
+    name:
+      - tshark
+    state: present
